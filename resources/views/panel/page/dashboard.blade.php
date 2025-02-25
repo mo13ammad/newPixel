@@ -8,7 +8,7 @@
                     <div class="profile-image mb-4">
                         <img src="https://cdn.discordapp.com/avatars/@user('id')/@user('avatar').webp?size=128" class="rounded-circle" alt="">
                     </div>
-                    <h4 class="fs-22 text-black mb-1">@user('username')#@user('discriminator')</h4>
+                    <h4 class="fs-22 text-black mb-1">@user('username')</h4>
                     @if ( auth()->user()->getActiveTire()  )
                         <p class="fs-22 text-black mb-1">{{ auth()->user()->tire->name }}</p>
                     @endif
