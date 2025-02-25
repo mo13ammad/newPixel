@@ -20,8 +20,8 @@ class PaymentController extends Controller
             'requestedSlots' => 'required|integer|min:1',
         ]);
 
-                //$userId = Auth::id();
-        $userId = 683668333224394798;
+        $userId = Auth::id();
+        //$userId = 683668333224394798;
         $discordId = "discord:" . $userId;
 
         // جستجوی کاربر در دیتابیس دوم
@@ -35,6 +35,8 @@ class PaymentController extends Controller
         $transaction->user_id = $userId;
         $transaction->slots = $request->input('requestedSlots');
         $transaction->amount = $request->input('totalPrice');
+        $transaction->uuid = \Illuminate\Support\Str::uuid();
+        $transaction->visitor = $request->ip(); // ثبت IP
         $transaction->save();
 
         // ایجاد فاکتور
@@ -44,7 +46,7 @@ class PaymentController extends Controller
             ->detail('slots', $request->input('requestedSlots'));
 
         // شروع فرآیند پرداخت
-        return Payment::callbackUrl(route('payment.callback', ['transaction' => $transaction->id]))
+        return Payment::callbackUrl(route('payment.callback', ['transaction' => $transaction->uuid]))
             ->purchase($invoice, function ($driver, $transactionId) use ($transaction) {
                 $transaction->trans_id = $transactionId;
                 $transaction->save();
@@ -57,7 +59,7 @@ class PaymentController extends Controller
     public function paymentCallback(Request $request, Transaction $transaction)
     {
         try {
-            if ($transaction->is_paid) {
+            if ($transaction->is_pay) {
                 return redirect()->route('character.slots')->withErrors('این تراکنش قبلاً پرداخت شده است.');
             }
 
@@ -66,13 +68,14 @@ class PaymentController extends Controller
 
             // به‌روزرسانی تراکنش
             $transaction->update([
-                'is_paid' => true,
+                'is_pay' => true,
                 'trans_id' => $receipt->getReferenceId(),
+                'result' => 'پرداخت موفق', // یا اطلاعات تکمیلی از $receipt
+                'visitor' => $request->ip(), // ثبت IP کاربر
             ]);
 
             // به‌روزرسانی اسلات‌های کاربر
-                    //$userId = Auth::id();
-        $userId = 683668333224394798;
+            $userId = Auth::id();
             $discordId = "discord:" . $userId;
 
             $user = UserSecond::where('discord', $discordId)->first();
@@ -81,8 +84,16 @@ class PaymentController extends Controller
             }
 
             return redirect()->route('character.slots')->with('success', 'پرداخت با موفقیت انجام شد.');
+
         } catch (\Exception $e) {
+            // ثبت خطا در نتیجه تراکنش
+            $transaction->update([
+                'result' => 'خطا: ' . $e->getMessage(),
+                'visitor' => $request->ip(),
+            ]);
+
             return redirect()->route('character.slots')->withErrors('پرداخت ناموفق بود: ' . $e->getMessage());
         }
+
     }
 }

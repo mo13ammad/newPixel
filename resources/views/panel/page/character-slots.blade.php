@@ -3,8 +3,7 @@
 
 @section('content')
 <div class="container">
-    <h1>تعداد اسلات‌های کاراکتری</h1>
-    <p>تعداد اسلات‌های کاراکتری شما: {{ $amount }}</p>
+    <h3><p>تعداد اسلات‌های کاراکتری شما: {{ $amount }}</p></h3>
 
     @if ($amount == 0)
         <div class="alert alert-warning">

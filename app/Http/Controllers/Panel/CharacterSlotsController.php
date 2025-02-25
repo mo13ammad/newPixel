@@ -11,8 +11,8 @@ class CharacterSlotsController extends Controller
     public function index()
     {
         // گرفتن شناسه کاربری کاربر لاگین کرده
-        //$userId = Auth::id();
-        $userId = 683668333224394798;
+        $userId = Auth::id();
+        //$userId = 683668333224394798;
 
         // تبدیل شناسه کاربری به فرمت "discord:<userid>"
         $discordId = "discord:" . $userId;
@@ -42,8 +42,8 @@ class CharacterSlotsController extends Controller
     function buySlots(Request $request)
     {
         // گرفتن شناسه کاربری لاگین‌شده
-        //$userId = Auth::id();
-        $userId = 683668333224394798;
+        $userId = Auth::id();
+        // $userId = 683668333224394798;
         $discordId = "discord:" . $userId;
 
         // جستجوی کاربر در دیتابیس دوم
@@ -75,7 +75,7 @@ class CharacterSlotsController extends Controller
         }
 
         // قیمت هر اسلات
-        $slotPrice = 1000;
+        $slotPrice = 89000;
         $totalPrice = $requestedSlots * $slotPrice;
         // انتقال به صفحه پرداخت
         return view('panel.page.buy-slots', [
