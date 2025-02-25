@@ -29,5 +29,5 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    'character_slot_price' => env('CHARACTER_SLOT_PRICE', 5000),
 ];
