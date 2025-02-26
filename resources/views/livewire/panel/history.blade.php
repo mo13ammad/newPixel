@@ -81,8 +81,8 @@
 </div>
 
                 <label for="input-realname" class="control-label ">نام کامل متقاضی</label>
-                <input class="form-control"  wire:model.lazy="history.realname" value="{{ $default_history }}">
-                <span class="text-danger">
+                <input class="form-control" wire:model.lazy="history.realname">
+                                <span class="text-danger">
                     @error('history.realname') وارد کردن این مورد الزامی است @enderror
                 </span>
             </div>
@@ -305,6 +305,16 @@
 
 
             <button type="submit" class="btn btn-info ml-4"  wire:click="save">ارسال درخواست</button>
+            @if($submission_message)
+            <div class="alert alert-success">
+                {{ $submission_message }}
+            </div>
+        @endif
+        @if($errors->any())
+    <div class="alert alert-danger">
+        لطفاً تمامی فیلدها را پرکنید
+    </div>
+@endif
             <div wire:loading wire:target="save" class="text-info">
                 در حال ذخیره سازی
             </div>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -12,5 +11,10 @@ class UserSecond extends Model
     public function multicharacterSlot()
     {
         return $this->hasOne(MulticharacterSlot::class, 'identifier', 'license2');
+    }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class, 'license', 'license2');
     }
 }

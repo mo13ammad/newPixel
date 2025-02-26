@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.features-list li {
+    list-style-type: none;
+    position: relative;
+    padding-left: 20px;
+}
+
+.features-list li::before {
+    content: "✔";
+    color: green;
+    position: absolute;
+    left: 0;
+}

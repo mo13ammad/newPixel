@@ -13,6 +13,7 @@ class History extends Component
     public $is_accept ;
     public $default_history = null ;
     public $save = false ;
+    public $submission_message = '';
 
     protected $rules = [
         'history.realname' => 'required|string', // نام کامل متقاضی
@@ -51,6 +52,7 @@ class History extends Component
             $this->history->save();
             $this->save = true;
             $this->histories = Auth()->user()->histories;
+            $this->submission_message = 'ثبت موفق فرم';
         }
     }
 

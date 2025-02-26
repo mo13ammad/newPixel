@@ -1,5 +1,64 @@
 @extends('panel.layout.main')
-
+<head>
+<style>
+            .subscription-plans {
+                display: flex;
+                justify-content: space-around;
+                padding: 20px;
+            }
+            .subscription-tier {
+                width: 25%;
+                padding: 20px;
+                background: linear-gradient(-45deg, #ff8383, #ff6666, #ff8383);
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+                border-radius: 10px;
+                text-align: center;
+                color: white;
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                transition: all 0.3s ease;
+            }
+            .subscription-tier h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                font-weight: bold;
+            }
+            .features-list {
+                background: white;
+                color: black;
+                padding: 10px;
+                border-radius: 5px;
+                text-align: left;
+            }
+            .features-list li {
+                list-style-type: none;
+                position: relative;
+                padding-left: 20px;
+                margin-bottom: 10px;
+            }
+            .features-list li::before {
+                content: "✔";
+                color: green;
+                position: absolute;
+                left: 0;
+            }
+            .subscription-tier:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+            @keyframes gradient {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+        </style>
+    </head>
 @section('content')
     <div class="row">
         <div class="col-md-4">
@@ -123,6 +182,38 @@
                         </tbody>
                     </table>
                 </div>
+                <p style="text-align: center;"><strong><span style="color: #ff0000;">توجه داشته باشید اشتراک Premium Access</span><span style="color: #ff0000;"> فقط جهت دسترسی به یک سری عناوین خاص استفاده میشود</span></strong></p>
+                <div class="subscription-plans">
+                    <div class="subscription-tier">
+                        <h2>اشتراک برنز</h2>
+                        <ul class="features-list">
+                            <li>ویژگی 1</li>
+                            <li>ویژگی 2</li>
+                        </ul>
+                    </div>
+                    <div class="subscription-tier">
+                        <h2>اشتراک سیلور</h2>
+                        <ul class="features-list">
+                            <li>ویژگی A</li>
+                            <li>ویژگی B</li>
+                        </ul>
+                    </div>
+                    <div class="subscription-tier">
+                        <h2>اشتراک گلد</h2>
+                        <ul class="features-list">
+                            <li>ویژگی X</li>
+                            <li>ویژگی Y</li>
+                        </ul>
+                    </div>
+                    <div class="subscription-tier">
+                        <h2>اشتراک پلاتین</h2>
+                        <ul class="features-list">
+                            <li>ویژگی P</li>
+                            <li>ویژگی Q</li>
+                        </ul>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
